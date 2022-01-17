@@ -6,6 +6,7 @@ function App() {
   const [value, setValue] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [like, setLike] = useState("like1");
+  const [page, setPage] = useState(0);
   const camera = {
     FHAZ: "Front Hazard Avoidance Camera",
     RHAZ: "Rear Hazard Avoidance Camera",
@@ -20,7 +21,13 @@ function App() {
   let map;
   let likeList = [];
 
-  const likeListener = (event) => like === "like1" ? setLike("like2") : setLike("like1");//setLike(true); 
+  //listener to like button
+  const likeListener = (event) =>
+    like === "like1" ? setLike("like2") : setLike("like1"); //setLike(true);
+
+  //
+  const viewSlides = (x) => setPage(page + x);
+
   //render at the beginning
   useEffect(async () => {
     setIsLoading(true);
@@ -32,7 +39,8 @@ function App() {
       })
       .then((data) => {
         let s = JSON.stringify(data);
-        s = s.substring(17, s.length - 1);
+        console.log(s);
+        //s = s.substring(17, s.length - 1);
         map = JSON.parse(s);
         setValue(map);
         setIsLoading(false);
@@ -42,36 +50,23 @@ function App() {
   //Map through the list
   const List = (array) => {
     return array.list.map((item) => (
-      <div className="photos">
-        <table>
-          <tr>
-            <div className="p">
-              <td>
-                <h3 align="left">
-                  Taken by NASA's {item.rover.name} rover on Mars, with{" "}
-                  {camera[item.camera.name]}
-                </h3>
-                <h7>on {item.earth_date}</h7>
-                <div className="imgContainer">
-                  <img
-                    align="left"
-                    src={item.img_src}
-                    alt="oops"
-                    className="responsive"
-                  />
-                  <div className="top-right">
-                    <button className={like} onClick={likeListener}>
-                      <i class="fas fa-heart"></i>
-                    </button>
-                  </div>
-                </div>
-                
-                
-              </td>
-            </div>
-          </tr>
-          <tr align="left"></tr>
-        </table>
+      <div className="container">
+        <h4>{item.title}</h4>
+        <h7>on {item.date}</h7>
+        <div className="imgContainer">
+          <img align="left" src={item.hdurl} alt="oops" className="responsive"/>
+          <div className="top-right">
+            <button className={like} onClick={likeListener}>
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+          <div className="prev" >
+            <a onclick={() => viewSlides(-1)}>&#10094;</a>
+          </div>
+          <div className="next">
+            <a  onclick="plusSlides(1)">&#10095;</a>
+          </div>
+        </div>  
       </div>
     ));
   };
@@ -81,7 +76,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Spacestagram</h1>
+      <h3>Spacestagram</h3>
       <List list={value} />
     </div>
   );
