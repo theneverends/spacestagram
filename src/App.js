@@ -4,9 +4,9 @@ import { useEffect } from "react";
 
 function App() {
   const [value, setValue] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [like, setLike] = useState("like1");
-  const [page, setPage] = useState(0);
+  const page = 0;
   const camera = {
     FHAZ: "Front Hazard Avoidance Camera",
     RHAZ: "Rear Hazard Avoidance Camera",
@@ -26,7 +26,10 @@ function App() {
     like === "like1" ? setLike("like2") : setLike("like1"); //setLike(true);
 
   //
-  const viewSlides = (x) => setPage(page + x);
+  const flipPage = (x) => { 
+    page += x;
+    console.log(page);
+  }
 
   //render at the beginning
   useEffect(async () => {
@@ -39,36 +42,35 @@ function App() {
       })
       .then((data) => {
         let s = JSON.stringify(data);
-        console.log(s);
         //s = s.substring(17, s.length - 1);
         map = JSON.parse(s);
         setValue(map);
         setIsLoading(false);
       });
-  }, []);
+  }, [page]);
 
   //Map through the list
   const List = (array) => {
-    return array.list.map((item) => (
+    return (
       <div className="container">
-        <h4>{item.title}</h4>
-        <h7>on {item.date}</h7>
+        <h4>{array.list[page].title}</h4>
+        <h7>on {array.list[page].date}</h7>
         <div className="imgContainer">
-          <img align="left" src={item.hdurl} alt="oops" className="responsive"/>
+          <img align="left" src={array.list[page].hdurl} alt="oops" className="responsive"/>
           <div className="top-right">
             <button className={like} onClick={likeListener}>
               <i class="fas fa-heart"></i>
             </button>
           </div>
           <div className="prev" >
-            <a onclick={() => viewSlides(-1)}>&#10094;</a>
+            <a onClick={() => flipPage(-1)}>&#10094;</a>
           </div>
           <div className="next">
-            <a  onclick="plusSlides(1)">&#10095;</a>
+            <a onClick={() => flipPage(1)}>&#10095;</a>
           </div>
         </div>  
       </div>
-    ));
+    );
   };
 
   //display each image
@@ -77,7 +79,7 @@ function App() {
   return (
     <div className="App">
       <h3>Spacestagram</h3>
-      <List list={value} />
+      {isLoading ? (<p>Loading ...</p>) : (<List list={value} />)}
     </div>
   );
 }

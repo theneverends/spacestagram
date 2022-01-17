@@ -43,23 +43,29 @@ img {
 }
 */
 
+.prev,
 .next {
+  top: 250px;
   position: absolute;
   color: red;
-  top: 50%;
-  right: 1%;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .prev {
-  position: absolute;
-  color: red;
-  top: 50%;
   left: 1%;
+}
+
+.next {
+  right: 1%;
 }
 
 .prev:hover,
 .next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: greenyellow;
 }
 
 .like1 {
