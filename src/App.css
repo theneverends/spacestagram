@@ -1,0 +1,50 @@
+h1 {
+  text-align: center;
+}
+
+.photos {
+  width: 400px;
+  align-items: center;
+  margin: auto;
+}
+
+h7 {
+  text-align: right;
+}
+
+img {
+  max-width: 100vw;
+  max-height: 70vh;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  height: auto;
+}
+
+.like1 {
+  background-color: transparent;
+  color: gray;
+  border: none;
+}
+
+.like1 :hover {
+  transition: 0.5s ease-out;
+  transform: scale(1.5);
+}
+
+.like2 {
+  background-color: transparent;
+  color: red;
+  border: none;
+}
+
+.imgContainer {
+  position: relative;
+}
+
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
