@@ -1,36 +1,12 @@
 import "./App.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import Display from "./Display";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
-function App() {
+export default function App() {
   const [value, setValue] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [like, setLike] = useState("like1");
-  const [page, setPage] = useState(0);
-  const [likeList, setLikeList] = useState([]);
-
-  //listener to like button
-  const likeListener = (item) => {
-    if (like === "like1") {
-      setLike("like2");
-      const temp = likeList;
-      temp.push(item);
-      setLikeList(temp);
-      localStorage.setItem(item.url, item);
-    } else {
-      setLike("like1");
-      const temp = likeList;
-      temp.pop(item);
-      setLikeList(temp);
-      localStorage.removeItem(item.url);
-    }
-  };
-
-  //
-  const flipPage = (x) => {
-      setPage(x + page);
-      setLike("like1");
-  };
 
   //render at the beginning
   useEffect(() => {
@@ -44,62 +20,16 @@ function App() {
       setIsLoading(false);
     }
     fetchData();
-    
-    
-    /*
-    await fetch("https://api.nasa.gov/planetary/apod?api_key=UzSgl1dG6wqfUUp3oSeinvDyZQDL0g58fyRRKQiN&count=10")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      let s = JSON.stringify(data);
-      //s = s.substring(17, s.length - 1);
-      let map = JSON.parse(s);
-      setValue(map);
-      setIsLoading(false);
-    });
-    */
   }, []);
-
-  
-
-  //Map through the list
-  const List = (array) => {
-    return (
-      <div className="container">
-        <h4>{array.list[page].title}</h4>
-        <h6>on {array.list[page].date}</h6>
-        <div className="imgContainer">
-          <img align="left" src={array.list[page].hdurl} alt="Loading... Please wait"/>
-          <div className="top-right">
-            <button className={like} onClick={() => likeListener(array.list[page])}>
-              <i className="fas fa-heart"></i>
-            </button>
-          </div>
-          <div className="prev" >
-            <button onClick={() => page > 0 ? flipPage(-1) : undefined }>&#10094;</button>
-          </div>
-          <div className="next">
-          <button onClick={() => page < array.list.length - 1 ? flipPage(1) : undefined}>&#10095;</button>
-          </div>
-        </div>  
-        <p>
-          {array.list[page].explanation}
-        </p>
-      </div>
-    );
-  };
 
   return (
     <div className="all">
       <div className="nav">
-        <a href="./">Spacestagram</a>
-        <a href="#collection">My Collection</a>
+        <a className="home" href="./">Spacestagram</a>
+        <a className="collection" href="#collection">My Collection</a>
       </div>
-      <h3>Spacestagram</h3>
-      { isLoading ? <p>Loading ...</p> : <List list={value} />}
+      { isLoading ? <div className="loading"></div> : <Display list={value} />}
     </div>
   );
 }
 
-export default App;
