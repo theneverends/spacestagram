@@ -23,20 +23,26 @@ function App() {
 
   //listener to like button
   const likeListener = (event, item) => {
-    if (like === "like1"){
+    if (like === "like1") {
       setLike("like2");
       likeList.push(item);
-    }
-    else {
+    } else {
       setLike("like1");
       likeList.pop(item);
     }
-  }
+  };
 
   //
-  const flipPage = (x) => { 
+  const flipPage = (x) => {
     page += x;
     console.log(page);
+  };
+
+  const showSlide = (array) => {
+    array.list.map((item) => {
+      item.
+    })
+
   }
 
   //render at the beginning
@@ -59,106 +65,32 @@ function App() {
 
   //Map through the list
   const List = (array) => {
-    return (
-      <div className="container">
-        {/*slide1*/}
-        <div className="slide">
-          <h4>{array.list[page].title}</h4>
-          <h7>on {array.list[page].date}</h7>
-          <div className="imgContainer">
-            <img align="left" src={array.list[page].hdurl} alt="oops" className="responsive"/>
-            <div className="top-right">
-              <button className={like} onClick={likeListener}>
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div className="prev" >
-              <a onClick={() => flipPage(-1)}>&#10094;</a>
-            </div>
-            <div className="next">
-              <a onClick={() => flipPage(1)}>&#10095;</a>
-            </div>
-          </div>  
+    showSlide(array);
+    return array.list.map((item) => (
+      <div className="container" id={array.list.indexOf(item)}>
+        <h4>{item.title}</h4>
+        <h7>on {item.date}</h7>
+        <div className="imgContainer">
+          <img
+            align="left"
+            src={item.hdurl}
+            alt="oops"
+            className="responsive"
+          />
+          <div className="top-right">
+            <button className={like} onClick={likeListener}>
+              <i class="fas fa-heart"></i>
+            </button>
+          </div>
+          <div className="prev">
+            <a onClick={() => flipPage(-1)}>&#10094;</a>
+          </div>
+          <div className="next">
+            <a onClick={() => flipPage(-1)}>&#10095;</a>
+          </div>
         </div>
-        {/*slide2*/}
-        <div className="slide">
-          <h4>{array.list[page + 1].title}</h4>
-          <h7>on {array.list[page + 1].date}</h7>
-          <div className="imgContainer">
-            <img align="left" src={array.list[page + 1].hdurl} alt="oops" className="responsive"/>
-            <div className="top-right">
-              <button className={like} onClick={likeListener}>
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div className="prev" >
-              <a onClick={() => flipPage(-1)}>&#10094;</a>
-            </div>
-            <div className="next">
-              <a onClick={() => flipPage(1)}>&#10095;</a>
-            </div>
-          </div>  
-        </div>
-        {/*slide3*/}
-        <div className="slide">
-          <h4>{array.list[page + 2].title}</h4>
-          <h7>on {array.list[page + 2].date}</h7>
-          <div className="imgContainer">
-            <img align="left" src={array.list[page + 2].hdurl} alt="oops" className="responsive"/>
-            <div className="top-right">
-              <button className={like} onClick={likeListener}>
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div className="prev" >
-              <a onClick={() => flipPage(-1)}>&#10094;</a>
-            </div>
-            <div className="next">
-              <a onClick={() => flipPage(1)}>&#10095;</a>
-            </div>
-          </div>  
-        </div>
-        {/*slide4*/}
-        <div className="slide">
-          <h4>{array.list[page + 3].title}</h4>
-          <h7>on {array.list[page + 3].date}</h7>
-          <div className="imgContainer">
-            <img align="left" src={array.list[page + 3].hdurl} alt="oops" className="responsive"/>
-            <div className="top-right">
-              <button className={like} onClick={likeListener}>
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div className="prev" >
-              <a onClick={() => flipPage(-1)}>&#10094;</a>
-            </div>
-            <div className="next">
-              <a onClick={() => flipPage(1)}>&#10095;</a>
-            </div>
-          </div>  
-        </div>
-        {/*slide5*/}
-        <div className="slide">
-          <h4>{array.list[page + 4].title}</h4>
-          <h7>on {array.list[page + 4].date}</h7>
-          <div className="imgContainer">
-            <img align="left" src={array.list[page + 4].hdurl} alt="oops" className="responsive"/>
-            <div className="top-right">
-              <button className={like} onClick={likeListener}>
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div className="prev" >
-              <a onClick={() => flipPage(-1)}>&#10094;</a>
-            </div>
-            <div className="next">
-              <a onClick={() => flipPage(1)}>&#10095;</a>
-            </div>
-          </div>  
-        </div>
-        
       </div>
-    );
+    ));
   };
 
   //display each image
@@ -167,7 +99,7 @@ function App() {
   return (
     <div className="App">
       <h3>Spacestagram</h3>
-      {isLoading ? (<p>Loading ...</p>) : (<List list={value} />)}
+      {isLoading ? <p>Loading ...</p> : <List list={value} />}
     </div>
   );
 }
