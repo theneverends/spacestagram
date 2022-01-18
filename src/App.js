@@ -2,7 +2,6 @@ import "./App.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import Display from "./Display";
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 export default function App() {
   const [value, setValue] = useState([]);
