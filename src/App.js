@@ -28,20 +28,20 @@ function App() {
       const temp = likeList;
       temp.push(item);
       setLikeList(temp);
+      localStorage.setItem(item.url, item);
     } else {
       setLike("like1");
       const temp = likeList;
       temp.pop(item);
       setLikeList(temp);
+      localStorage.removeItem(item.url);
     }
   };
 
   //
   const flipPage = (x) => {
-    setPage(x + page);
-    setLike("like1");
-    console.log(likeList);
-    console.log(page);
+      setPage(x + page);
+      setLike("like1");
   };
 
   //render at the beginning
@@ -60,39 +60,43 @@ function App() {
         setValue(map);
         setIsLoading(false);
       });
-  }, [page]);
+  }, []);
 
   //Map through the list
   const List = (array) => {
     return (
       <div className="container">
         <h4>{array.list[page].title}</h4>
-        <h7>on {array.list[page].date}</h7>
+        <h6>on {array.list[page].date}</h6>
         <div className="imgContainer">
-          <img align="left" src={array.list[page].hdurl} alt="oops" className="responsive"/>
+          <img align="left" src={array.list[page].hdurl} alt="Loading... Please wait"/>
           <div className="top-right">
-            <button className="like1" onClick={() => likeListener(array.list[page])}>
-              <i class="fas fa-heart"></i>
+            <button className={like} onClick={() => likeListener(array.list[page])}>
+              <i className="fas fa-heart"></i>
             </button>
           </div>
           <div className="prev" >
-            <a onClick={() => flipPage(-1)}>&#10094;</a>
+            <a onClick={() => page > 1 ? flipPage(-1) : undefined }>&#10094;</a>
           </div>
           <div className="next">
-          <a onClick={() => flipPage(1)}>&#10095;</a>
+          <a onClick={() => page < array.list.length - 1 ? flipPage(1) : undefined}>&#10095;</a>
           </div>
         </div>  
+        <p>
+          {array.list[page].explanation}
+        </p>
       </div>
     );
   };
 
-  //display each image
-  const Item = ({ item }) => {};
-
   return (
-    <div className="App">
+    <div className="all">
+      <div className="nav">
+        <a href="./">Spacestagram</a>
+        <a href="#collection">My Collection</a>
+      </div>
       <h3>Spacestagram</h3>
-      {isLoading ? <p>Loading ...</p> : <List list={value} />}
+      { isLoading ? <p>Loading ...</p> : <List list={value} />}
     </div>
   );
 }
