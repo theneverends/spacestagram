@@ -6,7 +6,7 @@ function App() {
   const [value, setValue] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [like, setLike] = useState("like1");
-  let page = 0;
+  const [page, setPage] = useState(0);
   const camera = {
     FHAZ: "Front Hazard Avoidance Camera",
     RHAZ: "Rear Hazard Avoidance Camera",
@@ -19,31 +19,30 @@ function App() {
     MINITES: "Miniature Thermal Emission Spectrometer (Mini-TES)",
   };
   let map;
-  let likeList = [];
+  const [likeList, setLikeList] = useState([]);
 
   //listener to like button
-  const likeListener = (event, item) => {
+  const likeListener = (item) => {
     if (like === "like1") {
       setLike("like2");
-      likeList.push(item);
+      const temp = likeList;
+      temp.push(item);
+      setLikeList(temp);
     } else {
       setLike("like1");
-      likeList.pop(item);
+      const temp = likeList;
+      temp.pop(item);
+      setLikeList(temp);
     }
   };
 
   //
   const flipPage = (x) => {
-    page += x;
+    setPage(x + page);
+    setLike("like1");
+    console.log(likeList);
     console.log(page);
   };
-
-  const showSlide = (array) => {
-    array.list.map((item) => {
-      item.
-    })
-
-  }
 
   //render at the beginning
   useEffect(async () => {
@@ -65,32 +64,26 @@ function App() {
 
   //Map through the list
   const List = (array) => {
-    showSlide(array);
-    return array.list.map((item) => (
-      <div className="container" id={array.list.indexOf(item)}>
-        <h4>{item.title}</h4>
-        <h7>on {item.date}</h7>
+    return (
+      <div className="container">
+        <h4>{array.list[page].title}</h4>
+        <h7>on {array.list[page].date}</h7>
         <div className="imgContainer">
-          <img
-            align="left"
-            src={item.hdurl}
-            alt="oops"
-            className="responsive"
-          />
+          <img align="left" src={array.list[page].hdurl} alt="oops" className="responsive"/>
           <div className="top-right">
-            <button className={like} onClick={likeListener}>
+            <button className="like1" onClick={() => likeListener(array.list[page])}>
               <i class="fas fa-heart"></i>
             </button>
           </div>
-          <div className="prev">
+          <div className="prev" >
             <a onClick={() => flipPage(-1)}>&#10094;</a>
           </div>
           <div className="next">
-            <a onClick={() => flipPage(-1)}>&#10095;</a>
+          <a onClick={() => flipPage(1)}>&#10095;</a>
           </div>
-        </div>
+        </div>  
       </div>
-    ));
+    );
   };
 
   //display each image
