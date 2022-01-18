@@ -7,17 +7,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [like, setLike] = useState("like1");
   const [page, setPage] = useState(0);
-  const camera = {
-    FHAZ: "Front Hazard Avoidance Camera",
-    RHAZ: "Rear Hazard Avoidance Camera",
-    MAST: "Mast Camera",
-    CHEMCAM: "Chemistry and Camera Complex",
-    MAHLI: "Mars Hand Lens Imager",
-    MARDI: "Mars Descent Imager",
-    NAVCAM: "Navigation Camera",
-    PANCAM: "Panoramic Camera",
-    MINITES: "Miniature Thermal Emission Spectrometer (Mini-TES)",
-  };
   let map;
   const [likeList, setLikeList] = useState([]);
 
@@ -76,7 +65,7 @@ function App() {
             </button>
           </div>
           <div className="prev" >
-            <a onClick={() => page > 1 ? flipPage(-1) : undefined }>&#10094;</a>
+            <a onClick={() => page > 0 ? flipPage(-1) : undefined }>&#10094;</a>
           </div>
           <div className="next">
           <a onClick={() => page < array.list.length - 1 ? flipPage(1) : undefined}>&#10095;</a>
