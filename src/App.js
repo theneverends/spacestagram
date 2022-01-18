@@ -7,7 +7,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [like, setLike] = useState("like1");
   const [page, setPage] = useState(0);
-  let map;
   const [likeList, setLikeList] = useState([]);
 
   //listener to like button
@@ -34,22 +33,35 @@ function App() {
   };
 
   //render at the beginning
-  useEffect(async () => {
+  useEffect(async() => {
     setIsLoading(true);
-    await fetch(
-      "https://api.nasa.gov/planetary/apod?api_key=UzSgl1dG6wqfUUp3oSeinvDyZQDL0g58fyRRKQiN&count=10"
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let s = JSON.stringify(data);
-        //s = s.substring(17, s.length - 1);
-        map = JSON.parse(s);
-        setValue(map);
-        setIsLoading(false);
-      });
+    
+    async function fetchData() {
+      const response = await fetch("https://api.nasa.gov/planetary/apod?api_key=UzSgl1dG6wqfUUp3oSeinvDyZQDL0g58fyRRKQiN&count=10");
+      const json = await response.json();
+      let map = JSON.parse(JSON.stringify(json));
+      setValue(map);
+      setIsLoading(false);
+    }
+    fetchData();
+    
+    
+    /*
+    await fetch("https://api.nasa.gov/planetary/apod?api_key=UzSgl1dG6wqfUUp3oSeinvDyZQDL0g58fyRRKQiN&count=10")
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      let s = JSON.stringify(data);
+      //s = s.substring(17, s.length - 1);
+      let map = JSON.parse(s);
+      setValue(map);
+      setIsLoading(false);
+    });
+    */
   }, []);
+
+  
 
   //Map through the list
   const List = (array) => {
