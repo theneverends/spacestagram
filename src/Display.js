@@ -1,33 +1,27 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 //Map through the list
 export default function Display (array) {
     const [page, setPage] = useState(0);
-    const [like, setLike] = useState(localStorage.getItem(array.list[page].title) === null ? "like1" : "like2");
-    const [likeList, setLikeList] = useState([]);
+    const [like, setLike] = useState(localStorage.getItem(array.list[page].title) === null ? "like1" : "like2"); 
 
     //listener to like button
-  const likeListener = (item) => {
-    if (like === "like1") {
-      setLike("like2");
-      const temp = likeList;
-      temp.push(item);
-      setLikeList(temp);
-      localStorage.setItem(item.title, item);
-    } else {
-      setLike("like1");
-      const temp = likeList;
-      temp.pop(item);
-      setLikeList(temp);
-      localStorage.removeItem(item.title);
-    }
-  };
+    const likeListener = (item, local) => {
+        if (like === "like1") {
+        setLike("like2");
+        localStorage.setItem(item.title, JSON.stringify(item));
+        } else {
+        setLike("like1");
+        localStorage.removeItem(item.title);
+        }
+    };
 
-  //
-  const flipPage = (x, array) => {
-      localStorage.getItem(array.list[x + page].title) === null ? setLike("like1") : setLike("like2");
-      setPage(x + page);
-  };
+    //
+    const flipPage = (x, array) => {
+        localStorage.getItem(array.list[x + page].title) === null ? setLike("like1") : setLike("like2");
+        setPage(x + page);
+    };
     
     return (
       <div className="container">

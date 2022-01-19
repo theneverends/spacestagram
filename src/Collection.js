@@ -4,7 +4,7 @@ import Display from "./Display";
 export default function Collection() {
     const likes = [... localStorage];
     return (
-        <div id="collection">
+        <div>
             Hello World
             <Display list={likes}/>
         </div>

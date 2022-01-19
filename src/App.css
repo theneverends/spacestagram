@@ -3,23 +3,31 @@
   margin: auto;
   overflow: hidden;
   background-color: #3498db;
+  padding-top: 5px;
   padding-bottom: 5px;
 }
 
-.nav a {
+.nav button {
   font-size: 20px;
   font-family: cursive;
   font-weight: 700;
   text-decoration: none;
+  color: red;
+  background-color: transparent;
+  border-color: purple;
+}
+
+.nav button :hover {
+  background-color: purple;
 }
 
 .nav .home {
   float: left;
-  padding-left: 10vw;
+  margin-left: 10vw;
 }
 
 .nav .collection {
-  padding-right: 10vw;
+  margin-right: 10vw;
   float: right;
 }
 
