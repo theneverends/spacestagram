@@ -2,10 +2,11 @@ import "./App.css";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import Display from "./Display";
+import Collection from "./Collection";
 
 export default function App() {
   const [value, setValue] = useState([]);
-  const [page, setPage] = useState(0);
+  const [webpage, setWebpage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [local, setLocal] = useState([]);
 
@@ -39,18 +40,18 @@ export default function App() {
       <div className="nav">
         <button className="home" onClick={() => {
           
-          return page === 1 ? setPage(0) : null
+          return webpage === 1 ? setWebpage(0) : null
         }}>Spacestagram</button>
         <button className="collection" onClick={() => {
           loadLocalStorage();
           console.log(local);
-          return page === 0 ? setPage(1) : null
+          return webpage === 0 ? setWebpage(1) : null
         }}>My Collection</button>
       </div>
       
       {/**/}
 
-      { isLoading ? (<div className="loading"></div>) : (page === 0 ? <Display list={value}/> : (local.length === 0 ? <p>Your collection is empty...</p> : <Display list={local}/>)) }
+      { isLoading ? (<div className="loading"></div>) : (webpage === 0 ? <Display list={value}/> : (local.length === 0 ? <p>Your collection is empty...</p> : <Collection list={local}/>)) }
     </div>
   );
 }
