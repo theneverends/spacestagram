@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 
 //Map through the list
 export default function Display (array) {
