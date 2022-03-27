@@ -16,7 +16,7 @@ export default function App() {
 
     async function fetchData() {
       
-      const response = await fetch("https://api.nasa.gov/planetary/apod?api_key=UzSgl1dG6wqfUUp3oSeinvDyZQDL0g58fyRRKQiN&count=100");
+      const response = await fetch("https://api.nasa.gov/planetary/apod?api_key=UzSgl1dG6wqfUUp3oSeinvDyZQDL0g58fyRRKQiN&count=10");
       const json = await response.json();
       let map = JSON.parse(JSON.stringify(json));
       setValue(map);

@@ -44,7 +44,7 @@ export default function Display (array) {
           <button className="next" onClick={() => page < array.list.length - 1 ? flipPage(1, array) : undefined}>&#10095;</button>
         </div>  
         <button className="expand">
-            Expand to see explanation of this photo
+            Expand to see comments of this photo
         </button>
         <div className="p">
             <p>
