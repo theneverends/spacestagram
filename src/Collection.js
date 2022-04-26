@@ -30,8 +30,8 @@ export default function Collection (array) {
           <button className="prev" onClick={() => page > 0 ? flipPage(-1, array) : undefined }>&#10094;</button>
           <img align="left" 
           src={array.list[page].url} 
-          alt={"Sorry, this video can't be shown in the image gallery, " 
-          + "please right click and select open image in new tab or go to " 
+          alt={"Sorry, this video can't be shown in the image gallery, "
+          +"please right click and select open image in new tab or go to " 
           + array.list[page].url 
           + " to watch the video."}>
               
