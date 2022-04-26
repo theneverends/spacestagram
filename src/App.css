@@ -96,6 +96,7 @@ img {
   min-height: 70vh;
   height: auto;
   color: orange;
+  text-align: center;
 }
 
 .prev,
