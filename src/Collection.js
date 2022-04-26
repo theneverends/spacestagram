@@ -16,7 +16,7 @@ export default function Collection (array) {
         }
     };
 
-    //
+    // change the status of like according to different photos
     const flipPage = (x, array) => {
         localStorage.getItem(array.list[x + page].title) === null ? setLike("like1") : setLike("like2");
         setPage(x + page);
